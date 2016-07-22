@@ -45,7 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\GUI\UIStuff\Scripts\Scene_Manager.cs" />
+     <Compile Include="Assets\GUI\Scripts\Scene_Manager.cs" />
      <Compile Include="Assets\Scripts\CharacterScript\CameraFollowPlayer.cs" />
      <Compile Include="Assets\Scripts\CharacterScript\Player2DController.cs" />
      <Compile Include="Assets\Scripts\Enemy Script\EnemyAIScript00.cs" />
