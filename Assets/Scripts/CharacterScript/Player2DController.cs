@@ -15,6 +15,8 @@ public class Player2DController : MonoBehaviour {
     public GameObject ShaverAttackZone;
     public GameObject SprayAttackZone;
 
+    float PowerUpTimer = 0;
+
     // Use this for initialization
     void Start () {
         
@@ -41,7 +43,9 @@ public class Player2DController : MonoBehaviour {
         {
             NoAttack();
         }
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        
+        //this is for testing purposes, when you hit number 1 2 or 3 you change between weapons scissors, shaver and spray can respectively
+        /*if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             WeaponNumber = 0;
         }
@@ -52,6 +56,23 @@ public class Player2DController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             WeaponNumber = 2;
+        }
+        */
+        //So using this above^^
+        //I can change it to when the player Collides with a power up with a tag - power up with name "Shaver or spray can" 
+        //then change the weapon number
+        //and below this I can make a if statement, if the weapon number != o set a timer for it to change to weapon number 0. 
+        //After this I just need to figure out how to affect the enemies with the weapons.
+
+        if(PowerUpTimer > 0)
+        {
+            PowerUpTimer -= Time.deltaTime;
+            Debug.Log(PowerUpTimer);
+        }
+        else
+        {
+            PowerUpTimer = 0;
+            WeaponNumber = 0;
         }
         
 
@@ -93,6 +114,31 @@ public class Player2DController : MonoBehaviour {
             ShaverAttackZone.SetActive(false);
             SprayAttackZone.SetActive(false); 
         }
-    
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("spraycan_powerup"))
+        {
+            Destroy(other.gameObject);
+            WeaponNumber = 2;
+            PowerUpTimer += 10;
+        }
+        if (other.CompareTag("shaver_powerup"))
+        {
+            Destroy(other.gameObject);
+            WeaponNumber = 1;
+            PowerUpTimer += 10;
+        }
+        // (other.CompareTag("gel_powerup"))
+        //
+        //  Destroy(other.gameObject);
+        //  WeaponNumber = 3;
+        //  PowerUpTimer += 10;
+       //
+
+
+    }
+
 
 }
