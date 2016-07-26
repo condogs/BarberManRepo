@@ -34,7 +34,17 @@ public class Player2DController : MonoBehaviour {
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
+        //Player interaction / upgrading
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            //This is where I make the command to change the game objects state from either crappy chair to high end chair
+            //So I will need to make a game object that has two states, and change that variable on command of the E key
+            //once this is done I will make this change only possible if I have enough money to upgrade
+        }
+
+
         //Player Attacking
+        //if the player uses left mouse button click, the player will perform a attack, if the button is let go then the weapon will become deactive
         if(Input.GetMouseButton(0))
         {
             PerformAttack();
@@ -44,26 +54,8 @@ public class Player2DController : MonoBehaviour {
             NoAttack();
         }
         
-        //this is for testing purposes, when you hit number 1 2 or 3 you change between weapons scissors, shaver and spray can respectively
-        /*if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            WeaponNumber = 0;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            WeaponNumber = 1;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            WeaponNumber = 2;
-        }
-        */
-        //So using this above^^
-        //I can change it to when the player Collides with a power up with a tag - power up with name "Shaver or spray can" 
-        //then change the weapon number
-        //and below this I can make a if statement, if the weapon number != o set a timer for it to change to weapon number 0. 
-        //After this I just need to figure out how to affect the enemies with the weapons.
-
+        //Power Up Timer
+        //If the timer is above 0, the timer will decrease in value till it reaches zero and changes the players weapon back to default ( 0 ).
         if(PowerUpTimer > 0)
         {
             PowerUpTimer -= Time.deltaTime;
@@ -79,8 +71,12 @@ public class Player2DController : MonoBehaviour {
 
     }
 
+    //Perform Attack Function
+    //To perform a attack a player will use this function
+    //it will work out which attack zone to set active. When the attack zone becomes active it is essentially a box trigger, if the enemy gets inside it, they will take damage 1 time. 
     void PerformAttack()
     {
+        //Set the Scissor attack zone active if the scissors is equiped
         if (WeaponNumber == 0)
         {
             ScissorsAttackZone.SetActive(true);
@@ -89,6 +85,7 @@ public class Player2DController : MonoBehaviour {
         {
             ScissorsAttackZone.SetActive(false);
         }
+        //Set the Shaver attack zone active if the Shaver is equiped
         if (WeaponNumber == 1)
         {
             ShaverAttackZone.SetActive(true);
@@ -97,6 +94,7 @@ public class Player2DController : MonoBehaviour {
         {
             ShaverAttackZone.SetActive(false);
         }
+        //Set the Spraycan attack zone active if the Spraycan is equiped
         if (WeaponNumber == 2)
         {
             SprayAttackZone.SetActive(true);
@@ -106,7 +104,9 @@ public class Player2DController : MonoBehaviour {
             SprayAttackZone.SetActive(false);
         }
     }
-        
+   
+    //The Dont attack function
+    //This function disables all weapons attack zones so that the attack zone can be used once and then delete itself     
    void NoAttack()
         {
 
@@ -115,7 +115,8 @@ public class Player2DController : MonoBehaviour {
             SprayAttackZone.SetActive(false); 
         }
 
-
+    //Trigger event for collecting power ups
+    //Each power up have their own tag in which determines which power up to equip
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("spraycan_powerup"))
@@ -130,6 +131,7 @@ public class Player2DController : MonoBehaviour {
             WeaponNumber = 1;
             PowerUpTimer += 10;
         }
+        //Gel will need a enemy to use so this will be done next week
         // (other.CompareTag("gel_powerup"))
         //
         //  Destroy(other.gameObject);

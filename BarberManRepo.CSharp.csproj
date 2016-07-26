@@ -58,18 +58,13 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\GUI\Scripts\Scene_Manager.cs" />
+    <Compile Include="Assets\Scripts\Asset Scripts\Chair.cs" />
     <Compile Include="Assets\Scripts\CharacterScript\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\CharacterScript\Player2DController.cs" />
     <Compile Include="Assets\Scripts\Enemy Script\EnemyAIScript00.cs" />
