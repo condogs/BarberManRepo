@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Player2DController : MonoBehaviour {
 
-    
+    //DebugingShortCuts
+    // E --> Interact
+    // M --> GetMoney
 
 
     //initialise the speed of the player in the inspector
@@ -15,7 +17,11 @@ public class Player2DController : MonoBehaviour {
     public GameObject ShaverAttackZone;
     public GameObject SprayAttackZone;
 
+    //powerUp timer
     float PowerUpTimer = 0;
+
+    //MoneySystem
+    int PlayerMoney = 0;
 
     // Use this for initialization
     void Start () {
@@ -35,13 +41,7 @@ public class Player2DController : MonoBehaviour {
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         //Player interaction / upgrading
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            //This is where I make the command to change the game objects state from either crappy chair to high end chair
-            //So I will need to make a game object that has two states, and change that variable on command of the E key
-            //once this is done I will make this change only possible if I have enough money to upgrade
-        }
-
+        
 
         //Player Attacking
         //if the player uses left mouse button click, the player will perform a attack, if the button is let go then the weapon will become deactive
@@ -66,8 +66,12 @@ public class Player2DController : MonoBehaviour {
             PowerUpTimer = 0;
             WeaponNumber = 0;
         }
-        
-
+        //Debuging Money System
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            PlayerMoney += 100;
+            Debug.Log("PlayerMoneyAmount = " + PlayerMoney);
+        }
 
     }
 
@@ -103,6 +107,8 @@ public class Player2DController : MonoBehaviour {
         {
             SprayAttackZone.SetActive(false);
         }
+
+
     }
    
     //The Dont attack function
@@ -119,6 +125,8 @@ public class Player2DController : MonoBehaviour {
     //Each power up have their own tag in which determines which power up to equip
     void OnTriggerEnter2D(Collider2D other)
     {
+
+        Debug.Log(other.tag);
         if (other.CompareTag("spraycan_powerup"))
         {
             Destroy(other.gameObject);
@@ -137,10 +145,24 @@ public class Player2DController : MonoBehaviour {
         //  Destroy(other.gameObject);
         //  WeaponNumber = 3;
         //  PowerUpTimer += 10;
-       //
+        //
+    }
 
+    //Asset Collision
+    void OnTriggerStay2D(Collider2D other)
+    {
+
+        if (other.CompareTag("Asset"))
+        {
+            if (Input.GetKey(KeyCode.E) && PlayerMoney >= 100)
+            {
+                other.GetComponent<Chair>().AssetState = 1;
+            }
+
+        }
 
     }
 
 
+   
 }
