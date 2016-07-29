@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/Options.unity
+=======
+- path: Assets/Scenes/FirstStageProductionBuildingScene1.unity
+>>>>>>> 3d1bd75e2a1ab8ed870919ea809794263a14670e
   isLoaded: 1
   isActive: 1
