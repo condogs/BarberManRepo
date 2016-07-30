@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player2DController : MonoBehaviour {
 
@@ -21,7 +22,15 @@ public class Player2DController : MonoBehaviour {
     float PowerUpTimer = 0;
 
     //MoneySystem
-    int PlayerMoney = 0;
+    public int PlayerMoney = 0;
+
+    //Upgrade GUI Element
+    public GameObject UpgradeGUI;
+    public Text PlayerMoneyGUI;
+    public Text WaveGUI;
+
+    //Wave System
+    int CurrentWave = 1;
 
     // Use this for initialization
     void Start () {
@@ -73,6 +82,11 @@ public class Player2DController : MonoBehaviour {
             Debug.Log("PlayerMoneyAmount = " + PlayerMoney);
         }
 
+        //GUI Elements
+        //PlayerMoney
+        PlayerMoneyGUI.GetComponent<Text>().text = "Money: $" + PlayerMoney;
+        //Wave GUI
+        WaveGUI.GetComponent<Text>().text = "Wave: " + CurrentWave;
     }
 
     //Perform Attack Function
@@ -126,18 +140,20 @@ public class Player2DController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
 
-        Debug.Log(other.tag);
+        //Debug.Log(other.tag);
+        //Check if the trigger you collided with its a power up of type Spray Can
         if (other.CompareTag("spraycan_powerup"))
         {
-            Destroy(other.gameObject);
-            WeaponNumber = 2;
-            PowerUpTimer += 10;
+            Destroy(other.gameObject);      //Destroy the power up object
+            WeaponNumber = 2;               //Change the weapon loadout to spraycan
+            PowerUpTimer += 10;             //Start the power up timer
         }
+        //Check if the trigger you collided with its a power up of type Shaver
         if (other.CompareTag("shaver_powerup"))
         {
-            Destroy(other.gameObject);
-            WeaponNumber = 1;
-            PowerUpTimer += 10;
+            Destroy(other.gameObject);      //Destroy the power up object
+            WeaponNumber = 1;               //Change the weapon loadout to spraycan
+            PowerUpTimer += 10;             //Start the power up timer
         }
         //Gel will need a enemy to use so this will be done next week
         // (other.CompareTag("gel_powerup"))
@@ -151,16 +167,31 @@ public class Player2DController : MonoBehaviour {
     //Asset Collision
     void OnTriggerStay2D(Collider2D other)
     {
-
+        //Look to see if the player is in the assets zone
         if (other.CompareTag("Asset"))
         {
-            if (Input.GetKey(KeyCode.E) && PlayerMoney >= 100)
-            {
-                other.GetComponent<Chair>().AssetState = 1;
-            }
 
+            if (other.GetComponent<Chair>().AssetState < 1)
+            {
+                UpgradeGUI.SetActive(true);
+                
+                //Check if the player has clicked the interact button and that he has the required amount of money 
+                if (Input.GetKeyDown(KeyCode.E) && PlayerMoney >= 100)
+                {
+                        other.GetComponent<Chair>().AssetState = 1;
+                        PlayerMoney -= 100;
+                        Debug.Log(PlayerMoney);
+                }
+            }
         }
 
+    }
+
+    void OnTriggerExit2D()
+    {
+        
+         UpgradeGUI.SetActive(false);
+        
     }
 
 

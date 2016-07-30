@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyHealthScript : MonoBehaviour {
 
+    public GameObject Player;
     int EnemyHealth = 100;
 
 	// Use this for initialization
@@ -13,6 +14,11 @@ public class EnemyHealthScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+        if(EnemyHealth < 0)
+        {
+            Destroy(gameObject);
+        }
+
 	}
 
 
@@ -20,8 +26,10 @@ public class EnemyHealthScript : MonoBehaviour {
     {
         if (other.CompareTag("PlayerAttackZone"))
         {
-            EnemyHealth -= 10;
+            EnemyHealth -= 25;
             Debug.Log("Ouch" + EnemyHealth);
+            Player.GetComponent<Player2DController>().PlayerMoney += 25;
+            
         }
         
 
