@@ -27,10 +27,9 @@ public class Player2DController : MonoBehaviour {
     //Upgrade GUI Element
     public GameObject UpgradeGUI;
     public Text PlayerMoneyGUI;
-    public Text WaveGUI;
+    
 
-    //Wave System
-    int CurrentWave = 1;
+    
 
     // Use this for initialization
     void Start () {
@@ -85,8 +84,7 @@ public class Player2DController : MonoBehaviour {
         //GUI Elements
         //PlayerMoney
         PlayerMoneyGUI.GetComponent<Text>().text = "Money: $" + PlayerMoney;
-        //Wave GUI
-        WaveGUI.GetComponent<Text>().text = "Wave: " + CurrentWave;
+       
     }
 
     //Perform Attack Function
