@@ -25,5 +25,7 @@ public class Chair : MonoBehaviour {
             GetComponent<SpriteRenderer>().sprite = green;
         }
 
+        //if Asset state 1, normal amount of enemies
+
     }
 }

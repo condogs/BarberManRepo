@@ -3,13 +3,14 @@ using System.Collections;
 
 public class EnemyHealthScript : MonoBehaviour {
 
-    public GameObject Player;
+    GameObject Player;
     int EnemyHealth = 100;
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+
+        Player =  GameObject.Find("Player");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -17,6 +18,17 @@ public class EnemyHealthScript : MonoBehaviour {
         if(EnemyHealth < 0)
         {
             Destroy(gameObject);
+        }
+        if(Vector3.Distance(Player.transform.position, transform.position) < 5)
+        {
+            
+            //perform attack
+            Player.GetComponent<Player2DController>().PlayerHealth -= 0.05f;
+            Debug.Log(Player.GetComponent<Player2DController>().PlayerHealth);
+        }
+        else
+        {
+            Player.GetComponent<Player2DController>().PlayerHealth += 0.02f;
         }
 
 	}
@@ -28,10 +40,8 @@ public class EnemyHealthScript : MonoBehaviour {
         {
             EnemyHealth -= 25;
             Debug.Log("Ouch" + EnemyHealth);
-            Player.GetComponent<Player2DController>().PlayerMoney += 25;
-            
+            Player.GetComponent<Player2DController>().PlayerMoney += 25;    
         }
-        
 
     }
 

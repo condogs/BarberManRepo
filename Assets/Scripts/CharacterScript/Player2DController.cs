@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player2DController : MonoBehaviour {
 
@@ -11,6 +12,9 @@ public class Player2DController : MonoBehaviour {
 
     //initialise the speed of the player in the inspector
     public float Speed;
+
+    //PlayerHealth
+    public float PlayerHealth;
 
     //Weapon Number
     int WeaponNumber = 0;
@@ -33,7 +37,9 @@ public class Player2DController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        
+
+        PlayerHealth = 100.0f;
+
     }
 	
 	// Update is called once per frame
@@ -48,8 +54,12 @@ public class Player2DController : MonoBehaviour {
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        //Player interaction / upgrading
-        
+        //PlayerHealthmaximum
+        if(PlayerHealth >= 100)
+        {
+            PlayerHealth = 100;
+        }
+
 
         //Player Attacking
         //if the player uses left mouse button click, the player will perform a attack, if the button is let go then the weapon will become deactive
@@ -181,6 +191,22 @@ public class Player2DController : MonoBehaviour {
                         Debug.Log(PlayerMoney);
                 }
             }
+        }
+
+        if (other.CompareTag("Office"))
+        {
+
+            
+
+                //Check if the player has clicked the interact button and that he has the required amount of money 
+                if (Input.GetKeyDown(KeyCode.E) && PlayerMoney >= 1000)
+                {
+                    
+                    PlayerMoney -= 1000;
+                SceneManager.LoadScene("Level2");
+                    Debug.Log(PlayerMoney);
+                }
+            
         }
 
     }
