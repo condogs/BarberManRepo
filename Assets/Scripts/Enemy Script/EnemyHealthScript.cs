@@ -4,10 +4,12 @@ using System.Collections;
 public class EnemyHealthScript : MonoBehaviour {
 
     GameObject Player;
-    int EnemyHealth = 100;
 
-	// Use this for initialization
-	void Start () {
+    int EnemyHealth = 100;
+    public int EnemyPayment = 30;
+    
+    // Use this for initialization
+    void Start () {
 
         Player =  GameObject.Find("Player");
     }
@@ -19,12 +21,13 @@ public class EnemyHealthScript : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        if(Vector3.Distance(Player.transform.position, transform.position) < 5)
+        if(Vector3.Distance(Player.transform.position, transform.position) < 10)
         {
             
             //perform attack
             Player.GetComponent<Player2DController>().PlayerHealth -= 0.05f;
-            Debug.Log(Player.GetComponent<Player2DController>().PlayerHealth);
+            //Debug.Log(Player.GetComponent<Player2DController>().PlayerHealth);
+
         }
         else
         {
@@ -40,10 +43,11 @@ public class EnemyHealthScript : MonoBehaviour {
         {
             EnemyHealth -= 25;
             Debug.Log("Ouch" + EnemyHealth);
-            Player.GetComponent<Player2DController>().PlayerMoney += 25;    
+            Player.GetComponent<Player2DController>().PlayerMoney += EnemyPayment;    
         }
 
     }
 
+    
 
 }

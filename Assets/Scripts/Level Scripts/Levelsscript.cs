@@ -18,7 +18,7 @@ public class Levelsscript : MonoBehaviour {
     public float IntermissionTimer = 30;    //IntermissionTimer - How long a intermission goes for
 
     //wavesystem
-    public float SpawnTimer = 10.0f;
+    public float SpawnTimer = 4.0f;
     public GameObject Enemy;
     public GameObject EnemySpawn;
 
@@ -103,7 +103,7 @@ public class Levelsscript : MonoBehaviour {
             {
 
                 Instantiate(Enemy, EnemySpawn.transform.position, Quaternion.identity);
-                SpawnTimer = 10.0f;
+                SpawnTimer = Random.Range(3,9);                                             //The next enemy will spawn on a time between 3-9 seconds
             }
 
 

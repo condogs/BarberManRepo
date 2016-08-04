@@ -31,15 +31,15 @@ public class Player2DController : MonoBehaviour {
     //Upgrade GUI Element
     public GameObject UpgradeGUI;
     public Text PlayerMoneyGUI;
-    
+    GameObject Enemy;
 
-    
+
 
     // Use this for initialization
     void Start () {
 
         PlayerHealth = 100.0f;
-
+        Enemy = GameObject.Find("Enemy");
     }
 	
 	// Update is called once per frame
@@ -189,6 +189,8 @@ public class Player2DController : MonoBehaviour {
                         other.GetComponent<Chair>().AssetState = 1;
                         PlayerMoney -= 100;
                         Debug.Log(PlayerMoney);
+                        Enemy.GetComponent<EnemyHealthScript>().EnemyPayment += 30;
+                        Debug.Log("Enemy Money: " + Enemy.GetComponent<EnemyHealthScript>().EnemyPayment);
                 }
             }
         }
@@ -203,7 +205,7 @@ public class Player2DController : MonoBehaviour {
                 {
                     
                     PlayerMoney -= 1000;
-                SceneManager.LoadScene("Level2");
+                    SceneManager.LoadScene("Level2");
                     Debug.Log(PlayerMoney);
                 }
             
