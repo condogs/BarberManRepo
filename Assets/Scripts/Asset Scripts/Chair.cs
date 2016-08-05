@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Chair : MonoBehaviour {
 
     public Sprite green;
     public Sprite red;
-
+    GameObject Player;
     GameObject Enemy;
+    public int currentLevel;
+    
 
     public int AssetState = 0;
 
@@ -14,6 +17,8 @@ public class Chair : MonoBehaviour {
 	void Start () {
         GetComponent<SpriteRenderer>().sprite = red;
         Enemy = GameObject.Find("Enemy");
+
+        Debug.Log("welcome to level " + currentLevel.ToString());
     }
 	
 	// Update is called once per frame
@@ -32,5 +37,17 @@ public class Chair : MonoBehaviour {
 
         //if Asset state 1, normal amount of enemies
 
+        
+
+
+    }
+
+    public void MoveToNextLevel()
+    {
+        int i = currentLevel + 1;
+        string s = "Level" + i.ToString();
+        Debug.Log("success, moving to " + s);
+
+        SceneManager.LoadScene(s);
     }
 }

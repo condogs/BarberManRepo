@@ -33,13 +33,12 @@ public class Player2DController : MonoBehaviour {
     public Text PlayerMoneyGUI;
     GameObject Enemy;
 
-
-
     // Use this for initialization
     void Start () {
 
         PlayerHealth = 100.0f;
         Enemy = GameObject.Find("Enemy");
+        
     }
 	
 	// Update is called once per frame
@@ -77,7 +76,7 @@ public class Player2DController : MonoBehaviour {
         if(PowerUpTimer > 0)
         {
             PowerUpTimer -= Time.deltaTime;
-            Debug.Log(PowerUpTimer);
+            //Debug.Log(PowerUpTimer);
         }
         else
         {
@@ -197,17 +196,23 @@ public class Player2DController : MonoBehaviour {
 
         if (other.CompareTag("Office"))
         {
-
             
-
-                //Check if the player has clicked the interact button and that he has the required amount of money 
-                if (Input.GetKeyDown(KeyCode.E) && PlayerMoney >= 1000)
+            if(other.name == "ChairNextLevel")
+            {
+                //Debug.Log("fond the next level chair");
+                if (Input.GetKeyDown(KeyCode.E) && PlayerMoney >= 0)
                 {
-                    
+
+                    Chair ch = other.gameObject.GetComponent<Chair>();
+                    ch.MoveToNextLevel();
                     PlayerMoney -= 1000;
-                    SceneManager.LoadScene("Level2");
                     Debug.Log(PlayerMoney);
+
+                    
                 }
+
+
+            }
             
         }
 
