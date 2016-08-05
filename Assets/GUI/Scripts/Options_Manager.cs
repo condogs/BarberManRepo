@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Options_Manager : MonoBehaviour {
 
@@ -35,5 +36,10 @@ public class Options_Manager : MonoBehaviour {
 	public void AudioPressed ()
 	{
 		audio = !audio;
+	}
+
+	public void LoadScene (string sceneName)
+	{
+		SceneManager.LoadScene (sceneName);
 	}
 }

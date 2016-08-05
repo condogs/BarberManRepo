@@ -87,8 +87,8 @@ public class Levelsscript : MonoBehaviour {
 
         //Wave GUI
         //Change the wave number on screen as it increases.
-        WaveGUI.GetComponent<Text>().text = "Wave: " + CurrentWave;
-        LevelGUI.GetComponent<Text>().text = "Level: " + LevelNumber;
+		WaveGUI.GetComponent<Text>().text = CurrentWave.ToString();
+		LevelGUI.GetComponent<Text>().text = LevelNumber.ToString();
 
 
 

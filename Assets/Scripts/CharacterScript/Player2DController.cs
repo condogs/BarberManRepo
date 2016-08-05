@@ -93,7 +93,7 @@ public class Player2DController : MonoBehaviour {
 
         //GUI Elements
         //PlayerMoney
-        PlayerMoneyGUI.GetComponent<Text>().text = "Money: $" + PlayerMoney;
+		PlayerMoneyGUI.GetComponent<Text>().text = PlayerMoney.ToString();
        
     }
 
