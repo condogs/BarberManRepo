@@ -41,6 +41,15 @@ public class Levelsscript : MonoBehaviour {
         {
             LevelTimer -= Time.deltaTime;
             WaveTimer -= Time.deltaTime;
+
+            //everytime the enemy spawn timer resets to zero initiate a enemy
+            SpawnTimer -= Time.deltaTime;
+            if (SpawnTimer <= 0)
+            {
+
+                Instantiate(Enemy, EnemySpawn.transform.position, Quaternion.identity);
+                SpawnTimer = Random.Range(3, 9);                                             //The next enemy will spawn on a time between 3-9 seconds
+            }
         }
         
         //So if the Level Timer gets to zero, we need a couple things to happen:
@@ -106,22 +115,7 @@ public class Levelsscript : MonoBehaviour {
 
 
 
-        //WaveSystem
-
-        if(LevelActive == true)
-        {
-
-            //everytime the enemy spawn timer resets to zero initiate a enemy
-            SpawnTimer -= Time.deltaTime;
-            if(SpawnTimer <= 0)
-            {
-
-                Instantiate(Enemy, EnemySpawn.transform.position, Quaternion.identity);
-                SpawnTimer = Random.Range(3,9);                                             //The next enemy will spawn on a time between 3-9 seconds
-            }
-
-
-        }
+       
 
     }
 }

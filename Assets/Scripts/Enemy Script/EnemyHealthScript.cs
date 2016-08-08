@@ -19,6 +19,7 @@ public class EnemyHealthScript : MonoBehaviour {
 	
         if(EnemyHealth < 0)
         {
+            Debug.Log(EnemyPayment);
             Destroy(gameObject);
         }
         if(Vector3.Distance(Player.transform.position, transform.position) < 10)
@@ -43,7 +44,16 @@ public class EnemyHealthScript : MonoBehaviour {
         {
             EnemyHealth -= 25;
             Debug.Log("Ouch" + EnemyHealth);
-            Player.GetComponent<Player2DController>().PlayerMoney += EnemyPayment;    
+            Player.GetComponent<Player2DController>().PlayerMoney += EnemyPayment;
+
+        }
+
+        if (other.CompareTag("gel_attackZone"))
+        {
+            EnemyHealth -= 110;
+            Debug.Log("Ouch" + EnemyHealth);
+            Player.GetComponent<Player2DController>().PlayerMoney += EnemyPayment;
+            Destroy(other.gameObject);
         }
 
     }

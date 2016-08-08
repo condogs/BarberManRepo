@@ -21,6 +21,7 @@ public class Player2DController : MonoBehaviour {
     public GameObject ScissorsAttackZone;
     public GameObject ShaverAttackZone;
     public GameObject SprayAttackZone;
+    public GameObject Gel;
 
     //powerUp timer
     float PowerUpTimer = 0;
@@ -31,13 +32,13 @@ public class Player2DController : MonoBehaviour {
     //Upgrade GUI Element
     public GameObject UpgradeGUI;
     public Text PlayerMoneyGUI;
-    GameObject Enemy;
+    public GameObject Enemy;
 
     // Use this for initialization
     void Start () {
 
         PlayerHealth = 100.0f;
-        Enemy = GameObject.Find("Enemy");
+        
         
     }
 	
@@ -128,7 +129,11 @@ public class Player2DController : MonoBehaviour {
         {
             SprayAttackZone.SetActive(false);
         }
-
+        if(WeaponNumber == 3)
+        {
+            Instantiate(Gel, transform.position, transform.rotation);
+            PowerUpTimer = 0;
+        }
 
     }
    
@@ -163,12 +168,12 @@ public class Player2DController : MonoBehaviour {
             PowerUpTimer += 10;             //Start the power up timer
         }
         //Gel will need a enemy to use so this will be done next week
-        // (other.CompareTag("gel_powerup"))
-        //
-        //  Destroy(other.gameObject);
-        //  WeaponNumber = 3;
-        //  PowerUpTimer += 10;
-        //
+        if (other.CompareTag("gel_powerup"))
+        {
+            Destroy(other.gameObject);
+            WeaponNumber = 3;
+            PowerUpTimer += 10;
+        }
     }
 
     //Asset Collision
@@ -197,7 +202,7 @@ public class Player2DController : MonoBehaviour {
         if (other.CompareTag("Office"))
         {
             
-            if(other.name == "ChairNextLevel")
+            if(other.name == "OfficeChair")
             {
                 //Debug.Log("fond the next level chair");
                 if (Input.GetKeyDown(KeyCode.E) && PlayerMoney >= 0)
