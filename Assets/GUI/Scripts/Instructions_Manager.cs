@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Instructions_Manager : MonoBehaviour {
 
@@ -37,5 +38,10 @@ public class Instructions_Manager : MonoBehaviour {
 		textObjectives.SetActive (false);
 		textPlayerControls.SetActive (false);
 		textEnemies.SetActive (true);
+	}
+
+	public void LoadScene (string sceneName)
+	{
+		SceneManager.LoadScene (sceneName);
 	}
 }

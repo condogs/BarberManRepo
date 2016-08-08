@@ -17,6 +17,9 @@ public class Levelsscript : MonoBehaviour {
     public bool LevelActive = true;         //Level Active - Is the level in action, or are we in a intermission(break), this determines which.
     public float IntermissionTimer = 30;    //IntermissionTimer - How long a intermission goes for
 
+    public Text IntermissionTimerGUI;
+    public GameObject IntermissionGameObjectGUI;
+
     //wavesystem
     public float SpawnTimer = 4.0f;
     public GameObject Enemy;
@@ -24,8 +27,10 @@ public class Levelsscript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+
+        IntermissionTimerGUI.GetComponent<Text>().text = " ";
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -75,6 +80,11 @@ public class Levelsscript : MonoBehaviour {
         {
             IntermissionTimer -= Time.deltaTime;
             WaveCount = 2;
+            IntermissionGameObjectGUI.SetActive(true);
+        }
+        else
+        {
+            IntermissionGameObjectGUI.SetActive(false);
         }
 
         //If the intermission timer is over, that means the next level will start, therefor Level is now active, and the intermission will stay at -1
@@ -83,12 +93,16 @@ public class Levelsscript : MonoBehaviour {
             LevelActive = true;
             IntermissionTimer = -1;
         }
+        if(IntermissionTimer >= 0)
+        {
+            IntermissionTimerGUI.GetComponent<Text>().text = "BREAK!:  " + IntermissionTimer;
+        }
 
 
         //Wave GUI
         //Change the wave number on screen as it increases.
-        WaveGUI.GetComponent<Text>().text = "Wave: " + CurrentWave;
-        LevelGUI.GetComponent<Text>().text = "Level: " + LevelNumber;
+		WaveGUI.GetComponent<Text>().text = CurrentWave.ToString();
+		LevelGUI.GetComponent<Text>().text = LevelNumber.ToString();
 
 
 
