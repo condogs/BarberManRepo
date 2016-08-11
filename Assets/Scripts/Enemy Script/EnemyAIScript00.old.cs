@@ -10,10 +10,10 @@ public class EnemyAIScript00 : MonoBehaviour {
     public GameObject playerObject;
     public GameObject enemy;
     public float spawntime = 10f;
+    public float speed = 2f;
 
 	// Use this for initialization
 	void Start () {
-        InvokeRepeating("spawn", spawntime, 0);
 	}
 	
 	// Update is called once per frame
@@ -38,14 +38,14 @@ public class EnemyAIScript00 : MonoBehaviour {
 
 	void chase()
 	{
-		transform.Translate (Vector3.forward * moveSpeed * Time.deltaTime);
+        transform.transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
 	}
     
-    void spawn()
+  /*  void spawn()
     {
         Vector3 position = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), 0);
         Instantiate(enemy, position, Quaternion.identity);      
-    }
+    }*/
 }
 	
 
