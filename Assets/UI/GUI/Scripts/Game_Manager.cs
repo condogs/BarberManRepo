@@ -35,10 +35,12 @@ public class Game_Manager : MonoBehaviour {
     public void RestartClicked()
     {
         // Input code
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     public void MenuClicked()
     {
         // Input code
+        Application.LoadLevel("Main_Menu");
     }
 }

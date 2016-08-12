@@ -34,12 +34,25 @@ public class Player2DController : MonoBehaviour {
     public Text PlayerMoneyGUI;
     public GameObject Enemy;
 
+    //Sound Effects
+    public AudioClip CashCollect;
+    public AudioClip HairSpray;
+    public AudioClip PickupSound;
+    public AudioClip PlayerDeath;
+    public AudioClip PlayerHit;
+    public AudioClip Razer;
+    public AudioClip Scissors;
+    private AudioSource source;
+    float soundTimer = 0.0f;
+
+
+
     // Use this for initialization
     void Start () {
 
         PlayerHealth = 100.0f;
-        
-        
+        source = GetComponent<AudioSource>();
+
     }
 	
 	// Update is called once per frame
@@ -59,7 +72,7 @@ public class Player2DController : MonoBehaviour {
         {
             PlayerHealth = 100;
         }
-
+        soundTimer -= Time.deltaTime;
 
         //Player Attacking
         //if the player uses left mouse button click, the player will perform a attack, if the button is let go then the weapon will become deactive
@@ -106,6 +119,12 @@ public class Player2DController : MonoBehaviour {
         if (WeaponNumber == 0)
         {
             ScissorsAttackZone.SetActive(true);
+            if(soundTimer <= 0)
+            {
+                source.PlayOneShot(Scissors, 50);
+                soundTimer += 0.5f;
+            }
+                
         }
         else
         {
@@ -124,6 +143,12 @@ public class Player2DController : MonoBehaviour {
         if (WeaponNumber == 2)
         {
             SprayAttackZone.SetActive(true);
+            if (soundTimer <= 0)
+            {
+                source.PlayOneShot(HairSpray, 50);
+                soundTimer += 0.5f;
+            }
+            
         }
         else
         {
@@ -133,6 +158,7 @@ public class Player2DController : MonoBehaviour {
         {
             Instantiate(Gel, transform.position, transform.rotation);
             PowerUpTimer = 0;
+            source.PlayOneShot(PlayerHit, 50);
         }
 
     }
@@ -145,6 +171,7 @@ public class Player2DController : MonoBehaviour {
             ScissorsAttackZone.SetActive(false);
             ShaverAttackZone.SetActive(false);
             SprayAttackZone.SetActive(false); 
+        source.Stop();
         }
 
     //Trigger event for collecting power ups
@@ -156,23 +183,31 @@ public class Player2DController : MonoBehaviour {
         //Check if the trigger you collided with its a power up of type Spray Can
         if (other.CompareTag("spraycan_powerup"))
         {
+            source.PlayOneShot(PickupSound, 50);
             Destroy(other.gameObject);      //Destroy the power up object
             WeaponNumber = 2;               //Change the weapon loadout to spraycan
             PowerUpTimer += 10;             //Start the power up timer
+            
         }
         //Check if the trigger you collided with its a power up of type Shaver
         if (other.CompareTag("shaver_powerup"))
         {
+            source.PlayOneShot(PickupSound, 50);
             Destroy(other.gameObject);      //Destroy the power up object
             WeaponNumber = 1;               //Change the weapon loadout to spraycan
             PowerUpTimer += 10;             //Start the power up timer
+            source.PlayOneShot(PickupSound, 50);
+            
         }
         //Gel will need a enemy to use so this will be done next week
         if (other.CompareTag("gel_powerup"))
         {
+            source.PlayOneShot(PickupSound, 50);
             Destroy(other.gameObject);
             WeaponNumber = 3;
             PowerUpTimer += 10;
+            
+            
         }
     }
 
@@ -190,11 +225,13 @@ public class Player2DController : MonoBehaviour {
                 //Check if the player has clicked the interact button and that he has the required amount of money 
                 if (Input.GetKeyDown(KeyCode.E) && PlayerMoney >= 100)
                 {
-                        other.GetComponent<Chair>().AssetState = 1;
+                    source.PlayOneShot(PickupSound, 50);
+                    other.GetComponent<Chair>().AssetState = 1;
                         PlayerMoney -= 100;
                         Debug.Log(PlayerMoney);
                         Enemy.GetComponent<EnemyHealthScript>().EnemyPayment += 30;
                         Debug.Log("Enemy Money: " + Enemy.GetComponent<EnemyHealthScript>().EnemyPayment);
+                        
                 }
             }
         }
@@ -212,8 +249,8 @@ public class Player2DController : MonoBehaviour {
                     ch.MoveToNextLevel();
                     PlayerMoney -= 1000;
                     Debug.Log(PlayerMoney);
+                    source.PlayOneShot(PickupSound, 50);
 
-                    
                 }
 
 

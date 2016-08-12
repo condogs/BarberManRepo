@@ -25,8 +25,15 @@ public class Levelsscript : MonoBehaviour {
     public GameObject Enemy;
     public GameObject EnemySpawn;
 
-	// Use this for initialization
-	void Start () {
+
+    public GameObject PowerUp1;
+    public GameObject PowerUp2;
+    public GameObject PowerUp3;
+    public int PowerUpNumber;
+    private GameObject PowerUpToSpawn;
+
+    // Use this for initialization
+    void Start () {
 
         IntermissionTimerGUI.GetComponent<Text>().text = " ";
 
@@ -34,10 +41,24 @@ public class Levelsscript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-        
+
+        PowerUpNumber = Random.Range(1, 3);
+        if(PowerUpNumber == 1)
+        {
+            PowerUpToSpawn = PowerUp1;
+        }
+        if (PowerUpNumber == 2)
+        {
+            PowerUpToSpawn = PowerUp2;
+        }
+        if (PowerUpNumber == 3)
+        {
+            PowerUpToSpawn = PowerUp3;
+        }
+
+
         //After wave 3, level active will becoome false, for a break
-        if(LevelActive == true)
+        if (LevelActive == true)
         {
             LevelTimer -= Time.deltaTime;
             WaveTimer -= Time.deltaTime;
@@ -74,8 +95,9 @@ public class Levelsscript : MonoBehaviour {
             WaveCount--;
             CurrentWave++;
             WaveTimer = 20;
-            
-            
+            Instantiate(PowerUpToSpawn, new Vector3(Random.Range(-7,7), Random.Range(-20,10), 0), transform.rotation);
+
+
         }
 
         //When the wave count gets to zero, after counting down from 2 (3 waves), Set the level active as false so the intermission begins and Level 2 begins
