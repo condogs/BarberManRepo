@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class EnemyHealthScript : MonoBehaviour {
 
     GameObject Player;
+
+    public Image Health_Bar;
+
+    public float Enemy_DMG;
 
     int EnemyHealth = 100;
     public int EnemyPayment = 30;
@@ -12,31 +17,29 @@ public class EnemyHealthScript : MonoBehaviour {
     void Start () {
 
         Player =  GameObject.Find("Player");
+
+        Health_Bar = GameObject.FindGameObjectWithTag("Health Bar").GetComponent<Image>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
+
         if(EnemyHealth < 0)
         {
             Debug.Log(EnemyPayment);
             Destroy(gameObject);
         }
-        if(Vector3.Distance(Player.transform.position, transform.position) < 10)
+        if(Vector3.Distance(Player.transform.position, transform.position) < 2.1)
         {
-            
             //perform attack
-            Player.GetComponent<Player2DController>().PlayerHealth -= 0.05f;
-            //Debug.Log(Player.GetComponent<Player2DController>().PlayerHealth);
+            Health_Bar.fillAmount -= Enemy_DMG;
 
+            if(Health_Bar.fillAmount == 0f)
+            {
+                Application.LoadLevel("Game_Over");
+            }
         }
-        else
-        {
-            Player.GetComponent<Player2DController>().PlayerHealth += 0.02f;
-        }
-
 	}
-
 
     void OnTriggerEnter2D(Collider2D other)
     {

@@ -18,7 +18,7 @@ public class Chair : MonoBehaviour {
         GetComponent<SpriteRenderer>().sprite = red;
         Enemy = GameObject.Find("Enemy");
 
-        Debug.Log("welcome to level " + currentLevel.ToString());
+        //Debug.Log("welcome to level " + currentLevel.ToString());
     }
 	
 	// Update is called once per frame
