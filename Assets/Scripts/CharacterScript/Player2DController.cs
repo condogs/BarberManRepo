@@ -50,7 +50,7 @@ public class Player2DController : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        PlayerHealth = 100.0f;
+        PlayerHealth = 1000.0f;
         source = GetComponent<AudioSource>();
 
     }

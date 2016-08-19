@@ -13,6 +13,10 @@ public class EnemyHealthScript : MonoBehaviour {
     int EnemyHealth = 100;
     public int EnemyPayment = 30;
     
+
+
+
+
     // Use this for initialization
     void Start () {
 
@@ -32,9 +36,10 @@ public class EnemyHealthScript : MonoBehaviour {
         if(Vector3.Distance(Player.transform.position, transform.position) < 2.1)
         {
             //perform attack
-            Health_Bar.fillAmount -= Enemy_DMG;
-
-            if(Health_Bar.fillAmount == 0f)
+            Player.GetComponent<Player2DController>().PlayerHealth -= Enemy_DMG;
+            Debug.Log(Player.GetComponent<Player2DController>().PlayerHealth);
+            Health_Bar.fillAmount = Player.GetComponent<Player2DController>().PlayerHealth / 100;
+            if (Health_Bar.fillAmount <= 0f)
             {
                 Application.LoadLevel("Game_Over");
             }
